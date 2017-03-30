@@ -7,9 +7,8 @@ import (
 )
 
 const (
-	Version string = "2.1"
-	// TODO(dperny) give gordon a greeting!
-	GordonGreeting string = ""
+	Version        string = "2.1.1"
+	GordonGreeting string = "I sure love Dockercon!"
 )
 
 // version 1.0
