@@ -7,4 +7,7 @@ RUN go install -v dockercon
 
 EXPOSE 80
 
+HEALTHCHECK --interval=2s --timeout=3s --retries=3 \
+  CMD curl -f http://localhost:80/healthcheck
+
 CMD ["dockercon"]
