@@ -6,14 +6,22 @@ import (
 	"net/http"
 )
 
-const Version string = "1.0"
+const Version string = "2.0"
 
 // version 1.0
 func main() {
+	http.HandleFunc("/healthcheck", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Got a healthcheck!")
+		fmt.Fprintln(w, "Healthy!")
+	})
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.Error(w, fmt.Sprintf("%v not found!", r.URL.Path), http.StatusNotFound)
+			return
+		}
 		log.Printf("Got a request!")
 		fmt.Fprintf(w, "Version %v!\n", Version)
 	})
-
 	log.Fatal(http.ListenAndServe(":80", nil))
 }
